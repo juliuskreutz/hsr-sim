@@ -1,7 +1,10 @@
 use crate::{
     engine::Engine,
     listener::Listener,
-    model::{AttackInfo, Element, Modifier, ModifierInfo, Property, PropertyInfo, PropertyType},
+    model::{
+        AttackInfo, Element, Modifier, ModifierInfo, Property, PropertyInfo,
+        PropertyType,
+    },
 };
 
 pub const ID: &str = "seele";
@@ -12,6 +15,7 @@ pub const SPEED: &str = "seele_speed";
 pub struct Seele;
 
 impl Seele {
+
     pub fn init(&self, engine: &mut Engine) {
         let listener = Listener {
             on_hit_start: Some(|_, _| info!("Hit Start Callback WOOOOOHOOOOO")),

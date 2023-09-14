@@ -1,5 +1,12 @@
 pub enum Element {
+    Any,
+    Physical,
+    Fire,
+    Ice,
+    Lightning,
+    Wind,
     Quantum,
+    Imaginary,
 }
 
 pub struct AttackInfo {
@@ -23,6 +30,7 @@ pub struct ModifierInfo {
 
 pub enum PropertyType {
     SpeedPercent(f64),
+    ElementDamageBoost(Element, f64),
 }
 
 pub struct Property {

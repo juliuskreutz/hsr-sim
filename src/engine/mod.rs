@@ -52,10 +52,13 @@ impl Engine {
             seele::ID.to_string(),
             Target {
                 id: seele::ID.to_string(),
-                speed: 115.0,
                 hit_points: 3000.0,
                 attack: 3000.0,
+                defense: 0.0,
+                speed: 115.0,
                 energy: 60,
+                critical_rate: 0.0,
+                critical_damage: 0.0,
                 target_type: TargetType::Character(CharacterType::Seele(seele::Seele)),
             },
         );
@@ -63,16 +66,19 @@ impl Engine {
             "dummy".to_string(),
             Target {
                 id: "dummy".to_string(),
-                speed: 0.0,
                 hit_points: 9999999999.0,
                 attack: 0.0,
+                defense: 0.0,
+                speed: 0.0,
                 energy: 0,
+                critical_rate: 0.0,
+                critical_damage: 0.0,
                 target_type: TargetType::Enemy(EnemyType::Dummy),
             },
         );
 
         let mut action_order = PriorityQueue::new();
-        action_order.push(seele::ID.to_string(), (10000.0 / 115.0) as i32);
+        action_order.push(seele::ID.to_string(), (10000.0 / targets[seele::ID].speed) as i32);
 
         let modifiers = HashMap::new();
         let properties = HashMap::new();
@@ -133,9 +139,9 @@ impl Engine {
 
         if let Some(properties) = self.properties.get(source) {
             for property in properties.values() {
-                let PropertyType::SpeedPercent(speed_percent) = property.property_type;
-
-                speed *= 1.0 + speed_percent;
+                if let PropertyType::SpeedPercent(speed_percent) = property.property_type {
+                    speed *= 1.0 + speed_percent;
+                }
             }
         }
 
